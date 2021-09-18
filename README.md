@@ -39,10 +39,11 @@ themer.set_theme({
 
 ```js
 class Eugenia
+	// Methods
+	constructor(styleIdentifier = 'eugenia-js-stylesheet')
+	set_theme(theme)
+	
+	// Variables
+	private _styleSheet
+	private _styleSheetObject
 ```
-### Methods
-- ```constructor(styleIdentifier = 'eugenia-js-stylesheet')```
-- ```set_theme(theme)```
-### Variables
-- ```private _styleSheet```
-- ```private _styleSheetObject```
