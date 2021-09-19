@@ -33,7 +33,7 @@ themer.set_theme({
 	"#herhangi-bir-id": {
 		"css-özelliği": "değer"
 	},
-	"heehangi-css-değişkeni": "değer",
+	"herhangi-css-değişkeni": "değer",
 });
 ```
 
