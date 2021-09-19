@@ -47,3 +47,7 @@ class Eugenia
 	private _styleSheet
 	private _styleSheetObject
 ```
+
+## See Eugenia in Action
+
+[Example](https://kaiserthe13th.w3spaces.com/eugenia.index.html)
