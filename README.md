@@ -17,7 +17,7 @@ install ```eugenia.min.js``` or ```eugenia.js``` and use them directly
 
 ## How to use / Documentation
 
-First of you must have a Eugenia instance
+First of all you must have a Eugenia instance
 
 ```js
 const themer = new Eugenia();
