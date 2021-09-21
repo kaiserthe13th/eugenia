@@ -51,3 +51,8 @@ class Eugenia
 ## See Eugenia in Action
 
 [Example](https://kaiserthe13th.w3spaces.com/eugenia.index.html)
+
+## Todo
+
+- Add Support for regional styles and variable changes
+- Support for erasing all global styles with one function
