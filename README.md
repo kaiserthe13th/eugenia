@@ -56,3 +56,5 @@ class Eugenia
 
 - Add Support for regional styles and variable changes
 - Support for erasing all global styles with one function
+- Add CSS Selector Support
+- Pseudoelement and state support
