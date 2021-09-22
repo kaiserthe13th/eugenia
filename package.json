@@ -1,0 +1,22 @@
+{
+  "name": "eugenia",
+  "version": "1.0.0",
+  "description": "A minimal theme engine for ease of use",
+  "main": "eugenia.js",
+  "scripts": {
+    "test": "tsc && node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiserthe13th/eugenia.git"
+  },
+  "author": "Kerem Göksu <keremgoksu@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/kaiserthe13th/eugenia/issues"
+  },
+  "homepage": "https://github.com/kaiserthe13th/eugenia#readme",
+  "dependencies": {
+    "tsc": "^2.0.3"
+  }
+}

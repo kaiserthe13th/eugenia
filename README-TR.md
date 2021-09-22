@@ -51,3 +51,11 @@ class Eugenia
 ## Eugenia'yı Eylemde Görün
 
 [Örnek](https://kaiserthe13th.w3spaces.com/eugenia.index.html)
+
+
+## Yapılacaklar
+
+- Bölgesel Stil ve CSS değişkeni ayarlama
+- Global stilleri tek bir fonksiyonla silme
+- CSS seçici desteği
+- Pseudoelement ve durum desteği
