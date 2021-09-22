@@ -43,28 +43,40 @@ class Eugenia {
 	set_theme(t) {
 		for (let k in t) {
 			if (k[0] == '.') {
+				if (this._styleSheetObject[k] == undefined) {
+					this._styleSheetObject[k] = {};
+				}
 				for (let l in t[k]) {
-					if (this._styleSheetObject[k] == undefined) {
-						this._styleSheetObject[k] = {};
-					}
 					this._styleSheetObject[k][l] = t[k][l];
 				}
-				this._styleSheet.innerHTML = "";
-				for (let l in this._styleSheetObject) {
-					this._styleSheet.innerHTML += l + "{";
-					for (let p in this._styleSheetObject[l]) {
-						this._styleSheet.innerHTML += p + ':' + this._styleSheetObject[l][p] + ';';
-					}
-					this._styleSheet.innerHTML += "}";
-				}
+				this.refreshStyleSheet();
 			} else if (k[0] == '#') {
 				let c = k.substring(1);
 				let item = document.getElementById(c);
 				for (let l in t[k]) {
-					item.style.setProperty(l, t[k][l])
+					item.style.setProperty(l, t[k][l]);
 				};
+			} else if (k[0] == '$') {
+				let selector = k.substring(1);
+				if (this._styleSheetObject[selector] == undefined) {
+					this._styleSheetObject[selector] = {};
+				}
+				for (let l in t[k]) {
+					this._styleSheetObject[selector][l] = t[k][l];
+				}
+				this.refreshStyleSheet();
 			} else document.documentElement.style.setProperty('--'+k, t[k]);
 		};
 		return t;
 	};
+	refreshStyleSheet() {
+		this._styleSheet.innerHTML = "";
+		for (let l in this._styleSheetObject) {
+			this._styleSheet.innerHTML += l + "{";
+			for (let p in this._styleSheetObject[l]) {
+				this._styleSheet.innerHTML += p + ':' + this._styleSheetObject[l][p] + ';';
+			}
+			this._styleSheet.innerHTML += "}";
+		}
+	}
 }
