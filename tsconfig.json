@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"lib": ["ES2020", "DOM", "ES2021.String"],
+		"lib": ["ES2020", "DOM"],
 		"module": "CommonJS",
 		"target": "ES6",
 		

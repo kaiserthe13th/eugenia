@@ -38,24 +38,18 @@ class Eugenia {
 		document.documentElement.appendChild(style_sheet);
 		this._styleSheet = style_sheet;
 		this._styleSheetObject = {};
+		this._styleSheetObject[':root'] = {};
 	};
 
-	set_theme(t) {
+	set_theme(t: any/* {[x: string] : string | {[x: string]: string}} */) {
 		for (let k in t) {
-			if (k[0] == '.') {
+			if (k[0] == '.' || k[0] == '#') {
 				if (this._styleSheetObject[k] == undefined) {
 					this._styleSheetObject[k] = {};
 				}
 				for (let l in t[k]) {
 					this._styleSheetObject[k][l] = t[k][l];
 				}
-				this.refreshStyleSheet();
-			} else if (k[0] == '#') {
-				let c = k.substring(1);
-				let item = document.getElementById(c);
-				for (let l in t[k]) {
-					item.style.setProperty(l, t[k][l]);
-				};
 			} else if (k[0] == '$') {
 				let selector = k.substring(1);
 				if (this._styleSheetObject[selector] == undefined) {
@@ -64,9 +58,11 @@ class Eugenia {
 				for (let l in t[k]) {
 					this._styleSheetObject[selector][l] = t[k][l];
 				}
-				this.refreshStyleSheet();
-			} else document.documentElement.style.setProperty('--'+k, t[k]);
+			} else {
+				this._styleSheetObject[':root']['--'+k] = t[k];
+			};
 		};
+		this.refreshStyleSheet();
 		return t;
 	};
 	refreshStyleSheet() {
@@ -77,6 +73,31 @@ class Eugenia {
 				this._styleSheet.innerHTML += p + ':' + this._styleSheetObject[l][p] + ';';
 			}
 			this._styleSheet.innerHTML += "}";
+		}
+	}
+	eraseStyleSheet(k?: string) {
+		if (k == undefined) {
+			this._styleSheetObject = {};
+		} else if (k[0] == '$') {
+			let selector = k.substring(1);
+			delete this._styleSheetObject[selector];
+		} else if (k[0] == '.' || k[0] == '#') {
+			delete this._styleSheetObject[k];
+		} else {
+			delete this._styleSheetObject[':root']['--'+k];
+		}
+		this.refreshStyleSheet();
+	}
+	getStyle(k?: string) {
+		if (k == undefined) {
+			return this._styleSheetObject;
+		} else if (k[0] == '$') {
+			let selector = k.substring(1);
+			return this._styleSheetObject[selector];
+		} else if (k[0] == '.' || k[0] == '#') {
+			return this._styleSheetObject[k];
+		} else {
+			return this._styleSheetObject[':root']['--'+k];
 		}
 	}
 }
