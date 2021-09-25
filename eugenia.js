@@ -45,7 +45,7 @@ var Eugenia = /** @class */ (function () {
         this._styleSheetObject[':root'] = {};
     }
     ;
-    Eugenia.prototype.set_theme = function (t /* {[x: string] : string | {[x: string]: string}} */) {
+    Eugenia.prototype.setTheme = function (t /* {[x: string] : string | {[x: string]: string}} */) {
         for (var k in t) {
             if (k[0] == '.' || k[0] == '#') {
                 if (this._styleSheetObject[k] == undefined) {
@@ -70,11 +70,11 @@ var Eugenia = /** @class */ (function () {
             ;
         }
         ;
-        this.refreshStyleSheet();
+        this.refreshStyles();
         return t;
     };
     ;
-    Eugenia.prototype.refreshStyleSheet = function () {
+    Eugenia.prototype.refreshStyles = function () {
         this._styleSheet.innerHTML = "";
         for (var l in this._styleSheetObject) {
             this._styleSheet.innerHTML += l + "{";
@@ -84,7 +84,7 @@ var Eugenia = /** @class */ (function () {
             this._styleSheet.innerHTML += "}";
         }
     };
-    Eugenia.prototype.eraseStyleSheet = function (k) {
+    Eugenia.prototype.eraseStyle = function (k) {
         if (k == undefined) {
             this._styleSheetObject = {};
         }
@@ -98,7 +98,7 @@ var Eugenia = /** @class */ (function () {
         else {
             delete this._styleSheetObject[':root']['--' + k];
         }
-        this.refreshStyleSheet();
+        this.refreshStyles();
     };
     Eugenia.prototype.getStyle = function (k) {
         if (k == undefined) {

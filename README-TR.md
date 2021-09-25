@@ -23,29 +23,133 @@ veya
 const themer = new Eugenia();
 ```
 
-sonra set_theme metodu ile temanızı ayarlayabilirsiniz.
+sonra setTheme metodu ile temanızı ayarlayabilirsiniz.
 
 ```js
-themer.set_theme({
-	".herhangi-bir-css-sınıfı": {
+Eugenia.setTheme({
+	".herhangi-sınıf": {
 		"css-özelliği": "değer"
+		// More
 	},
-	"#herhangi-bir-id": {
+	".herhangi-sınıf::before": {
+		"content": "value"
 		"css-özelliği": "değer"
+		// More
 	},
-	"herhangi-css-değişkeni": "değer",
+	"#herhangi-id": {
+		"css-özelliği": "değer"
+		// More
+	},
+	"#herhangi-id:hover": {
+		"yeni-css-özelliği": "değer"
+		// More
+	},
+	"$herhangi > css-seçicisi": {
+		"css-özelliği": "değer"
+		// More
+	},
+	"herhangi-css-değişkeni": "değer"
+	// More
 });
 ```
 
+### Genel Bakış
+
 ```js
-class Eugenia
+function rgb(r: number, g: number, b: number) -> string {...}
+
+function rgba(r: number, g: number, b: number, a?: number) -> string {...}
+
+function hsl(h: number, s: number, l: number) -> string {...}
+
+function hsla(h: number, s: number, l: number, a?: number) -> string {...}
+
+class Eugenia {
 	// Metodlar
-	constructor(styleIdentifier = 'eugenia-js-stylesheet')
-	set_theme(theme)
+	constructor(styleIdentifier = 'eugenia-stylesheet') -> Eugenia {...}
+	// Temayı ayarlar:
+	setTheme(theme: object) -> object(theme) {...}
+	// Ayarladığınız stiller için bir getter:
+	getStyle(k?: string) -> object | string {...}
+	// Ayarladığınız stiller için silme metodu:
+	eraseStyles(k?: string) {...}
+	// Stilleri yenile
+	refreshStyles(k?: string) {...}
 	
 	// Değişkenler
-	private _styleSheet
-	private _styleSheetObject
+	private _styleSheet;
+	private _styleSheetObject;
+}
+```
+
+### Kullanım
+
+* #### Eugenia.setTheme(tema) -> object(tema)
+
+setTheme ayarladığınız değeri geri yollar<br>
+setTheme temaları aşağıdaki sözdiziminde ayarlayan bir metoddur
+
+```js
+Eugenia.setTheme({
+	".herhangi-sınıf": {
+		"css-özelliği": "değer"
+		// More
+	},
+	".herhangi-sınıf::before": {
+		"content": "value"
+		"css-özelliği": "değer"
+		// More
+	},
+	"#herhangi-id": {
+		"css-özelliği": "değer"
+		// More
+	},
+	"#herhangi-id:hover": {
+		"yeni-css-özelliği": "değer"
+		// More
+	},
+	"$herhangi > css-seçicisi": {
+		"css-özelliği": "değer"
+		// More
+	},
+	"herhangi-css-değişkeni": "değer"
+	// More
+});
+```
+
+* #### Eugenia.getStyle(k) -> object | string
+
+getStyle istenen stili geri yollar<br>
+getStyle aşağıdaki sözdizimine göre stiller geri döndüren bir metoddur
+
+```js
+Eugenia.getStyle(); // Tüm stilleri geri yollar
+Eugenia.getStyle('.herhangi-sınıf'); // herhangi-sınıf için yazılmış stilleri geri yollar
+Eugenia.getStyle('.herhangi-sınıf::before'); // herhangi-sınıf'ın ::before pseudoelement'i için yazılmış stilleri geri yollar
+Eugenia.getStyle('#herhangi-id'); // herhangi-id için yazılmış stilleri geri yollar
+Eugenia.getStyle('#herhangi-id:hover'); // herhangi-id'nin hover durumu için yazılmış stilleri geri yollar
+Eugenia.getStyle('$herhangi > css-seçicisi'); // "herhangi > css-seçicisi" için yazılmış stilleri geri yollar
+Eugenia.getStyle('herhangi-css-değişkeni'); // herhangi-css-değişkeni'nin değerini geri yollar
+```
+
+* #### Eugenia.refreshStyles()
+
+refreshStyles birşey geri yollamaz<br>
+refreshStyles stilleri yenileyen bir metoddur
+
+* #### Eugenia.eraseStyle(k)
+
+eraseStyle birşey geri yollamaz<br>
+eraseStyle aşağıdaki sözdizimine göre stilleri silen bir metoddur
+
+```js
+Eugenia.getStyle(); // Tüm stilleri siler
+Eugenia.getStyle('.herhangi-sınıf'); // herhangi-sınıf için yazılmış stilleri siler
+Eugenia.getStyle('.herhangi-sınıf::before'); // herhangi-sınıf'ın ::before pseudoelement'i için yazılmış stilleri siler
+Eugenia.getStyle('#herhangi-id'); // herhangi-id için yazılmış stilleri siler
+Eugenia.getStyle('#herhangi-id:hover'); // herhangi-id'nin hover durumu için yazılmış stilleri siler
+Eugenia.getStyle('$herhangi > css-seçicisi'); // "herhangi > css-seçicisi" için yazılmış stilleri siler
+Eugenia.getStyle('herhangi-css-değişkeni'); // herhangi-css-değişkeni'nin değerini siler
 ```
 
 ## Eugenia'yı Eylemde Görün
@@ -56,6 +160,3 @@ class Eugenia
 ## Yapılacaklar
 
 - Bölgesel Stil ve CSS değişkeni ayarlama
-- Global stilleri tek bir fonksiyonla silme
-- CSS seçici desteği
-- Pseudoelement ve durum desteği
