@@ -41,7 +41,7 @@ class Eugenia {
 		this._styleSheetObject[':root'] = {};
 	};
 
-	set_theme(t: any/* {[x: string] : string | {[x: string]: string}} */) {
+	setTheme(t: any/* {[x: string] : string | {[x: string]: string}} */) {
 		for (let k in t) {
 			if (k[0] == '.' || k[0] == '#') {
 				if (this._styleSheetObject[k] == undefined) {
@@ -62,10 +62,10 @@ class Eugenia {
 				this._styleSheetObject[':root']['--'+k] = t[k];
 			};
 		};
-		this.refreshStyleSheet();
+		this.refreshStyles();
 		return t;
 	};
-	refreshStyleSheet() {
+	refreshStyles() {
 		this._styleSheet.innerHTML = "";
 		for (let l in this._styleSheetObject) {
 			this._styleSheet.innerHTML += l + "{";
@@ -75,7 +75,7 @@ class Eugenia {
 			this._styleSheet.innerHTML += "}";
 		}
 	}
-	eraseStyleSheet(k?: string) {
+	eraseStyle(k?: string) {
 		if (k == undefined) {
 			this._styleSheetObject = {};
 		} else if (k[0] == '$') {
@@ -86,7 +86,7 @@ class Eugenia {
 		} else {
 			delete this._styleSheetObject[':root']['--'+k];
 		}
-		this.refreshStyleSheet();
+		this.refreshStyles();
 	}
 	getStyle(k?: string) {
 		if (k == undefined) {
