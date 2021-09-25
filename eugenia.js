@@ -36,46 +36,84 @@ function hsla(h, s, l, a) {
 ;
 var Eugenia = /** @class */ (function () {
     function Eugenia(styleIdentifier) {
-        if (styleIdentifier === void 0) { styleIdentifier = 'eugenia-js-stylesheet'; }
+        if (styleIdentifier === void 0) { styleIdentifier = 'eugenia-stylesheet'; }
         var style_sheet = document.createElement('style');
         style_sheet.id = styleIdentifier;
         document.documentElement.appendChild(style_sheet);
         this._styleSheet = style_sheet;
         this._styleSheetObject = {};
+        this._styleSheetObject[':root'] = {};
     }
     ;
-    Eugenia.prototype.set_theme = function (t) {
+    Eugenia.prototype.set_theme = function (t /* {[x: string] : string | {[x: string]: string}} */) {
         for (var k in t) {
-            if (k[0] == '.') {
+            if (k[0] == '.' || k[0] == '#') {
+                if (this._styleSheetObject[k] == undefined) {
+                    this._styleSheetObject[k] = {};
+                }
                 for (var l in t[k]) {
-                    if (this._styleSheetObject[k] == undefined) {
-                        this._styleSheetObject[k] = {};
-                    }
                     this._styleSheetObject[k][l] = t[k][l];
                 }
-                this._styleSheet.innerHTML = "";
-                for (var l in this._styleSheetObject) {
-                    this._styleSheet.innerHTML += l + "{";
-                    for (var p in this._styleSheetObject[l]) {
-                        this._styleSheet.innerHTML += p + ':' + this._styleSheetObject[l][p] + ';';
-                    }
-                    this._styleSheet.innerHTML += "}";
-                }
             }
-            else if (k[0] == '#') {
-                var c = k.substring(1);
-                var item = document.getElementById(c);
+            else if (k[0] == '$') {
+                var selector = k.substring(1);
+                if (this._styleSheetObject[selector] == undefined) {
+                    this._styleSheetObject[selector] = {};
+                }
                 for (var l in t[k]) {
-                    item.style.setProperty(l, t[k][l]);
+                    this._styleSheetObject[selector][l] = t[k][l];
                 }
-                ;
             }
-            else
-                document.documentElement.style.setProperty('--' + k, t[k]);
+            else {
+                this._styleSheetObject[':root']['--' + k] = t[k];
+            }
+            ;
         }
         ;
+        this.refreshStyleSheet();
         return t;
     };
     ;
+    Eugenia.prototype.refreshStyleSheet = function () {
+        this._styleSheet.innerHTML = "";
+        for (var l in this._styleSheetObject) {
+            this._styleSheet.innerHTML += l + "{";
+            for (var p in this._styleSheetObject[l]) {
+                this._styleSheet.innerHTML += p + ':' + this._styleSheetObject[l][p] + ';';
+            }
+            this._styleSheet.innerHTML += "}";
+        }
+    };
+    Eugenia.prototype.eraseStyleSheet = function (k) {
+        if (k == undefined) {
+            this._styleSheetObject = {};
+        }
+        else if (k[0] == '$') {
+            var selector = k.substring(1);
+            delete this._styleSheetObject[selector];
+        }
+        else if (k[0] == '.' || k[0] == '#') {
+            delete this._styleSheetObject[k];
+        }
+        else {
+            delete this._styleSheetObject[':root']['--' + k];
+        }
+        this.refreshStyleSheet();
+    };
+    Eugenia.prototype.getStyle = function (k) {
+        if (k == undefined) {
+            return this._styleSheetObject;
+        }
+        else if (k[0] == '$') {
+            var selector = k.substring(1);
+            return this._styleSheetObject[selector];
+        }
+        else if (k[0] == '.' || k[0] == '#') {
+            return this._styleSheetObject[k];
+        }
+        else {
+            return this._styleSheetObject[':root']['--' + k];
+        }
+    };
     return Eugenia;
 }());
