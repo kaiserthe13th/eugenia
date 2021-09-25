@@ -72,7 +72,7 @@ class Eugenia {
 	// Ayarladığınız stiller için bir getter:
 	getStyle(k?: string) -> object | string {...}
 	// Ayarladığınız stiller için silme metodu:
-	eraseStyles(k?: string) {...}
+	eraseStyle(k?: string) {...}
 	// Stilleri yenile
 	refreshStyles(k?: string) {...}
 	

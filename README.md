@@ -72,7 +72,7 @@ class Eugenia {
 	// Getter for any style you have set:
 	getStyle(k?: string) -> object | string {...}
 	// Erasing method for any style you have set:
-	eraseStyles(k?: string) {...}
+	eraseStyle(k?: string) {...}
 	// Refresh styles
 	refreshStyles(k?: string) {...}
 	
